@@ -21,6 +21,12 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/campgrounds', async (req, res) => {
+     const campgrounds = await Campground.find({});
+     res.render('campgrounds/index', {campgrounds});
+});
+
+
 app.get('/create-campground', async (req, res) => {
     let camp = new Campground({title: 'Nansana Camp', description: 'The most perfect place'});
     await camp.save();
