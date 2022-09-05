@@ -26,12 +26,16 @@ app.get('/campgrounds', async (req, res) => {
      res.render('campgrounds/index', {campgrounds});
 });
 
-
-app.get('/create-campground', async (req, res) => {
-    let camp = new Campground({title: 'Nansana Camp', description: 'The most perfect place'});
-    await camp.save();
-    res.send(camp);
+app.get('/campgrounds/:id', async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
+    res.render('campgrounds/show', {campground});
 });
+
+
+
+
+
 
 app.listen(3000, () => {
     console.log('App Listening On Port 3000');
