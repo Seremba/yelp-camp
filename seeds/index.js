@@ -17,10 +17,19 @@ const seedDB = async () => {
    await Campground.deleteMany({});
     for(let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 10000);
         // console.log(random1000);
         const camp = new Campground({
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: `
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla maxime molestiae delectus molestias, reprehenderit quae doloremque distinctio obcaecati aperiam porro. Repudiandae eos rem id odio quo corporis eveniet obcaecati ullam
+            laboriosam quod mollitia, facilis nulla modi, veniam dignissimos quibusdam. Veritatis provident consequatur nisi voluptatem rerum, unde eligendi. Natus at veritatis ut, officia praesentium delectus ea numquam quasi
+            id animi magni alias, corporis sunt nobis saepe tenetur? Asperiores dicta, repellendus esse perferendis porro voluptas exercitationem, sapiente doloribus, culpa est ea consectetur illum consequatur a iste sequi deserunt similique beatae
+            accusamus. Aspernatur omnis in accusantium ea autem placeat, vitae cumque molestias nemo dolor, nulla exercitationem voluptas doloribus labore recusandae ratione veritatis nisi quo repudiandae ex. Voluptatum
+            totam blanditiis, eveniet ratione officiis tempora quaerat doloremque odio nisi magni iste a rerum eius vel ut quae, animi culpa sint enim, voluptatibus quasi iusto! Similique, vel aut iste odio error voluptas sed! Vel, placeat accusamus`,
+            price
 
         });
 
