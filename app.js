@@ -10,6 +10,7 @@ const catchAsyncError = require('./utils/catchAsyncError');
 const Review = require('./models/review');
 
 
+
 mongoose.connect('mongodb://localhost:27017/yelp-camp');
 const db = mongoose.connection
 
@@ -101,9 +102,17 @@ app.post('/campgrounds/:id/reviews', validateReview, catchAsyncError(async (req,
     //save review
     await review.save();
     //save campground
-    await campground.save()
+    await campground.save();
     //redirect to the show page
     res.redirect(`/campgrounds/${campground._id}`);
+}));
+
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsyncError(async (req, res) => {
+
+    const {id, reviewId} = req.params;
+    await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}}); //pull removes from an array, according to a condn
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
 }));
 
 app.all('*', (req, res, next) => {
