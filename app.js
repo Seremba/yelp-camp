@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session')
 const  methodOverride = require('method-override');
+const flash = require('connect-flash')
 const ExpressError = require('./utils/ExpressError');
 
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret',
     resave: false,
@@ -39,6 +41,15 @@ const sessionConfig = {
     }
 };
 app.use(session(sessionConfig));
+app.use(flash());
+
+
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 app.get('/', (req, res) => {
 
@@ -46,6 +57,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/campgrounds', campgrounds); // campground routes, check in routes/campgrounds.js
+
 app.use('/campgrounds/:id/reviews', reviews); // review routes, check in routes/reviews.js
 
 
