@@ -27,6 +27,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, validateCampground, catchAsyncError(async (req, res, next) => {
         const campground = new Campground(req.body.campground);
+        campground.author = req.user._id;
         await campground.save();
         req.flash('success', 'Successfully Created a New Campground!')
         res.redirect(`/campgrounds/${campground._id}`);
