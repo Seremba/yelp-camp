@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const campgrounds = require('../controllers/campground');
+const campgrounds = require('../controllers/campgrounds');
 const catchAsyncError = require('../utils/catchAsyncError');
 const Campground = require('../models/campground');
 const {isLoggedIn, validateCampground, isAuthor} = require('../middleware')
