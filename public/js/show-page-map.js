@@ -7,6 +7,8 @@ const map = new mapboxgl.Map({
   projection: "globe",
 });
 
+map.addControl(new mapboxgl.NavigationControl());
+
 const marker = new mapboxgl.Marker()
   .setLngLat(campground.geometry.coordinates)
   .setPopup(
